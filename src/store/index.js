@@ -21,7 +21,7 @@ export default new Vuex.Store({
           console.log("计时器工作了");
           commit('updateGeoCoordMap', data);
         });
-      }, 1000); 
+      }, 100000); 
     },
     initGeoCoordMap({ commit }) {
       getGeoCoordMap().then(({ data }) => {

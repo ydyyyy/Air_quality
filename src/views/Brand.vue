@@ -27,12 +27,12 @@
         <div class="item left">
           <div class="panel">
             <h2>空气质量指数排名</h2>
-            <business :geoCoordMap="geoCoordMap"/>
+            <business :geoCoordMap="geoCoordMap" />
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
             <h2>主要污染物占比</h2>
-            <talent />
+            <talent :geoCoordMap="geoCoordMap" />
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
@@ -96,7 +96,7 @@
           </div>
           <div class="panel">
             <h2>空气质量指数分布</h2>
-            <distribution />
+            <distribution :geoCoordMap="geoCoordMap" />
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
@@ -141,7 +141,7 @@ export default {
     // 实时更新地图数据
     geoCoordMap(newMap) {
       this.getEchart();
-    }
+    },
   },
   created() {},
   mounted() {
@@ -291,12 +291,13 @@ export default {
         },
         visualMap: {
           type: "piecewise", // 分段式视觉映射组件
+          dimension: 2,
           pieces: [
-            { min: 301, label: ">300 严重污染", color: "#8B0000" }, // 深红色
+            { min: 300, label: ">300 严重污染", color: "#8B0000" }, // 深红色
             { min: 201, max: 300, label: "201-300 重度污染", color: "#800080" }, // 紫色
-            { min: 151, max: 200, label: "151-200 中度污染", color: "#FF0000" }, // 红色
-            { min: 101, max: 150, label: "101-150 轻度污染", color: "#FFA500" }, // 橙色
-            { min: 51, max: 100, label: "51-100 良", color: "#FFFF00" }, // 黄色
+            { min: 150, max: 200, label: "151-200 中度污染", color: "#FF0000" }, // 红色
+            { min: 100, max: 150, label: "101-150 轻度污染", color: "#FFA500" }, // 橙色
+            { min: 50, max: 100, label: "51-100 良", color: "#FFFF00" }, // 黄色
             { max: 50, label: "0-50 优", color: "#008000" }, // 绿色
           ],
           orient: "vertical", // 水平放置
@@ -318,9 +319,6 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: (params) => {
-                  return this.getColorByAQI(params.value[2]);
-                },
                 shadowBlur: 10, // 添加阴影效果（可选）
                 shadowColor: "rgba(0, 0, 0, 0.5)", // 阴影颜色（可选）
               },
@@ -351,9 +349,6 @@ export default {
         myChart.resize();
       });
     },
-  },
-  beforeDestroy() {
-    clearInterval(this.timer);
   },
 };
 </script>

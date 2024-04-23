@@ -27,7 +27,7 @@ export default {
     geoCoordMap: {
       handler(newValue, oldValue) {
         // 当 props 变化时重新绘制图表
-        console.log("props 变化");
+        console.log("空气质量指数排名变化");
         this.covertData(newValue);
         this.getEchartLeft1();
       },
@@ -53,7 +53,6 @@ export default {
       const cityData = top7DataArray.map((item) => item[1][2]);
 
       this.charts = { cityList, cityData };
-      console.log(this.charts);
     },
     getEchartLeft1() {
       // 实例化对象
@@ -61,7 +60,6 @@ export default {
 
       let top10CityList = this.charts.cityList;
       let top10CityData = this.charts.cityData;
-      console.log(top10CityList, top10CityData);
       let color = [
         "rgba(14,109,236",
         "rgba(255,91,6",
