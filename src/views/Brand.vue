@@ -49,7 +49,7 @@
                 <li>
                   <countTo
                     :startVal="startVal"
-                    :endVal="43"
+                    :endVal="endValAQI"
                     :duration="6000"
                     separator=""
                   ></countTo>
@@ -57,7 +57,7 @@
                 <li>
                   <countTo
                     :startVal="startVal"
-                    :endVal="40"
+                    :endVal="endValPM2"
                     :duration="6000"
                     separator=""
                   ></countTo>
@@ -65,7 +65,7 @@
                 <li>
                   <countTo
                     :startVal="startVal"
-                    :endVal="88"
+                    :endVal="endValPM10"
                     :duration="6000"
                     separator=""
                   ></countTo>
@@ -91,7 +91,7 @@
         <div class="item right">
           <div class="panel">
             <h2>城市污染物指数对比</h2>
-            <pyramidTrend />
+            <pyramidTrend :geoCoordMap="geoCoordMap"/>
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
@@ -129,6 +129,9 @@ export default {
       imgSrc: "",
       weatcherData: {},
       startVal: 0,
+      endValAQI: 0,
+      endValPM2: 0,
+      endValPM10: 0,
     };
   },
   computed: {
@@ -140,17 +143,19 @@ export default {
   watch: {
     // 实时更新地图数据
     geoCoordMap(newMap) {
+      this.updateHead(newMap);
       this.getEchart();
     },
   },
   created() {},
   mounted() {
-    // this.getWeather();
-    // this.timer = setInterval(() => {
-    //   this.getWeather();
-    // }, 1000 * 60 * 60);
+     this.getWeather();
+     this.timer = setInterval(() => {
+       this.getWeather();
+     }, 1000 * 60 * 60);
     this.nowTimes();
     this.getEchart();
+    this.updateHead(this.geoCoordMap);
   },
   methods: {
     timeFormate(timeStamp) {
@@ -227,6 +232,21 @@ export default {
           console.log(err);
         });
     },
+    updateHead(data) {
+      let totalAQI = 0;
+      let totalPM2 = 0;
+      let totalPM10 = 0;
+      let count = 0;
+      for (let key in data) {
+        totalAQI += data[key][2];
+        totalPM2 += data[key][3];
+        totalPM10 += data[key][4];
+        count++;
+      }
+      this.endValAQI = totalAQI / count;
+      this.endValPM2 = totalPM2 / count;
+      this.endValPM10 = totalPM10 / count;
+    },
     convertData() {
       var res = [];
       for (var city in this.geoCoordMap) {
@@ -238,21 +258,6 @@ export default {
         }
       }
       return res;
-    },
-    getColorByAQI(value) {
-      if (value > 300) {
-        return "#8B0000"; // 深红色
-      } else if (value > 200) {
-        return "#800080"; // 紫色
-      } else if (value > 150) {
-        return "#FF0000"; // 红色
-      } else if (value > 100) {
-        return "#FFA500"; // 橙色
-      } else if (value > 50) {
-        return "#FFFF00"; // 黄色
-      } else {
-        return "#008000"; // 绿色
-      }
     },
     getEchart() {
       // 初始化地图数据
@@ -325,7 +330,7 @@ export default {
             },
             label: {
               normal: {
-                show: true,
+                show: false,
                 position: "top",
                 formatter: "{b}",
                 color: "#fff", // 文本颜色
@@ -338,13 +343,15 @@ export default {
         ],
       };
       myChart.setOption(option, true);
-      myChart.on("click", function(params) {
+      myChart.on("click", (params) => {
         if (params.seriesType === "effectScatter") {
-          console.log(params.name);
+          let cityInfo = [];
+          this.$store.commit("updateCityName", params.name);
+          cityInfo = this.geoCoordMap[params.name];
+          this.$store.commit("updateCityInfo", cityInfo);
           window.location.href = "http://localhost:8081/#/home"; // 跳转到指定页面
         }
       });
-
       window.addEventListener("resize", () => {
         myChart.resize();
       });

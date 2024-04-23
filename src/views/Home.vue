@@ -8,18 +8,7 @@
   <div class="home-container">
     <div class="wrap" ref="editor">
       <div class="top"></div>
-      <h2>{{ this.cityName }}市空气污染预测</h2>
-
-      <!-- <sinan />
-      <seamless />
-
-      <scrollArc />
-      <szBar />
-
-      <ringPin />
-      <rotateColorful />
-      <circleRunway />
-      <scanRadius /> -->
+      <h2>{{ cityName }}空气污染预测</h2>
 
       <cakeLinkage />
       <gauge />
@@ -27,54 +16,38 @@
       <div class="container">
         <!-- Button One -->
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-one">CO预测</button>
+          <button class="btn btn-3d btn-one" @click="predictCO">CO预测</button>
         </div>
 
         <!-- Button Two -->
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-two">PM2.5预测</button>
+          <button class="btn btn-3d btn-two" @click="predictPM2">PM2.5预测</button>
         </div>
 
         <!-- Button Three -->
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-three">PM10预测</button>
+          <button class="btn btn-3d btn-three" @click="predictPM10">PM10预测</button>
         </div>
 
         <!-- Button Four -->
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-four">SO2预测</button>
+          <button class="btn btn-3d btn-four" @click="predictSO2">SO2预测</button>
         </div>
 
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-five">NO2预测</button>
+          <button class="btn btn-3d btn-five" @click="predictNO2">NO2预测</button>
         </div>
 
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-six">O3预测</button>
+          <button class="btn btn-3d btn-six" @click="predictO3">O3预测</button>
         </div>
 
         <div class="btn-perspective">
-          <button class="btn btn-3d btn-seven">AQI预测</button>
+          <button class="btn btn-3d btn-seven" @click="predictAQI">AQI预测</button>
         </div>
       </div>
 
       <scrollArc />
-
-      <!-- <dynamicLine />
-
-      <staffMix />
-      <flashCloud />
-      <ringPie />
-      <colorfulRadar />
-
-      <dynamicList />
-      <bar3d />
-      <colorfulArea />
-
-      <rainbow />
-      <gauge />
-      <waterPolo />
-      <circleNesting /> -->
 
       <div class="divider"></div>
     </div>
@@ -83,21 +56,49 @@
 
 <script>
 import { screenSize } from "@/assets/js/utils";
+import {getPredictForCO ,getPredictForNO2 ,getPredictForO3 ,getPredictForPM10 ,getPredictForPM2 ,getPredictForSO2 ,getPredictForAQI} from "@/api/index";
 
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      cityName: "哈尔滨",
+      
     };
   },
-  computed: {},
+  computed: {
+    cityName() {
+      return this.$store.state.cityName;  
+    }
+  },
   created() {},
   mounted() {
     screenSize(this.$refs.editor);
   },
-  methods: {},
+  methods: {
+    predictCO() {
+      console.log("CO预测");
+
+    },
+    predictPM2() {
+      console.log("PM2.5预测");
+    },
+    predictPM10() {
+      console.log("PM10预测");
+    },
+    predictSO2() {
+      console.log("SO2预测");
+    },
+    predictNO2() {
+      console.log("NO2预测");
+    },
+    predictO3() {
+      console.log("O3预测");
+    },
+    predictAQI() {
+      console.log("AQI预测");
+    },
+  },
 };
 </script>
 

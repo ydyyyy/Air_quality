@@ -1,4 +1,5 @@
 import Mock from "mockjs";
+import { getPredictForCO } from "..";
 
 export default {
   getProjects: () => {
@@ -49,4 +50,28 @@ export default {
       台北: [121.4648, 25.3232, 53, 20, 30, 10, 15, 0.4, 30],
     }
   },
+
+  getPredictForCO: () => {
+    return [1,2,3,4,5,0.6,0.7]
+  },
+  getPredictForNO2: () => {
+    return [1,2,3,4,5,6,7]
+  },
+  getPredictForO3: () => {
+    return [150,200,103,140,150,260,170]
+  },
+  getPredictForPM10: () => {
+    return [1,2,3,4,5,6,7]
+  },
+  getPredictForPM2: () => {
+    return [1,2,3,4,5,6,7]
+  },
+  getPredictForSO2: () => {
+    return [1,2,3,4,5,6,7]
+  },
+  getPredictForAQI: () => {
+    return [34,25,46,67,88,79,100]
+  }
+
+
 };

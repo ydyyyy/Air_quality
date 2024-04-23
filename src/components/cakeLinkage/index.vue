@@ -24,6 +24,14 @@ export default {
     return {
       option: null,
       dataMap: {},
+      data:[
+              { value: this.$store.state.cityInfo[3], name: "PM2.5", itemStyle: { color: "#d6d638" } },
+              { value: this.$store.state.cityInfo[4], name: "PM10", itemStyle: { color: "#00c86c" } },
+              { value: this.$store.state.cityInfo[5], name: "SO2", itemStyle: { color: "#07d8ff" } },
+              { value: this.$store.state.cityInfo[6], name: "NO2", itemStyle: { color: "#0c71cf" } },
+              { value: this.$store.state.cityInfo[7], name: "CO", itemStyle: { color: "#E74C3C" } },
+              { value: this.$store.state.cityInfo[8], name: "O3", itemStyle: { color: "#FFA500" } },
+            ]
     };
   },
   mounted() {
@@ -32,13 +40,6 @@ export default {
   methods: {
     getEchart() {
       let myChart = echarts.init(document.getElementById("chart_bp"));
-
-      let itemStyleJR = { color: "#d6d638" };
-      let itemStyleZW = { color: "#00c86c" };
-      let itemStyleYL = { color: "#07d8ff" };
-      let itemStyleIT = { color: "#0c71cf" };
-      let itemStyleCY = { color: "#FFA500" };
-
       this.option = {
         tooltip: {
           // 启用 tooltip
@@ -52,7 +53,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["PM2.5", "PM10", "SO2", "NO2", "O3"],
+            data: ["PM2.5", "PM10", "SO2", "NO2", "CO", "O3"],
             splitLine: { show: false },
             axisTick: { show: false },
             axisLine: {
@@ -61,7 +62,7 @@ export default {
             },
             axisLabel: {
               color: "#FFFFFF", // 设置X轴标签的字体颜色为白色
-              fontSize: 14,
+              fontSize: 11,
             },
           },
         ],
@@ -89,13 +90,7 @@ export default {
         series: [
           {
             type: "bar",
-            data: [
-              { value: 120, itemStyle: itemStyleJR },
-              { value: 200, itemStyle: itemStyleZW },
-              { value: 150, itemStyle: itemStyleYL },
-              { value: 80, itemStyle: itemStyleIT },
-              { value: 80, itemStyle: itemStyleCY },
-            ],
+            data: this.data,
             barMaxWidth: 15,
             center: ["20%", "65%"],
             seriesLayoutBy: "row",
@@ -120,13 +115,7 @@ export default {
           {
             name: "应用占比",
             type: "pie",
-            data: [
-              { value: 335, name: "PM2.5", itemStyle: itemStyleJR },
-              { value: 310, name: "PM10", itemStyle: itemStyleZW },
-              { value: 234, name: "SO2", itemStyle: itemStyleYL },
-              { value: 135, name: "NO2", itemStyle: itemStyleIT },
-              { value: 1548, name: "O3", itemStyle: itemStyleCY },
-            ],
+            data: this.data,
             center: ["76%", "20%"],
             radius: "28%",
             z: 100,

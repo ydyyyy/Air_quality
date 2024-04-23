@@ -208,7 +208,8 @@ export default {
                 show: true,
                 formatter: "{b}",
                 textStyle: {
-                  fontSize: 12,
+                  fontSize: 16,
+                  color: "#fff",
                 },
                 position: "outside",
               },

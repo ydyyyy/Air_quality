@@ -17,31 +17,67 @@ export default {
     return {
       option: null,
       dataMap: {},
+      data: {},
+      cityList:[
+        "北京市",
+        "上海市",
+        "广州市",
+        "成都市",
+        "重庆市",
+        "沈阳市",
+        "合肥市",
+        "贵阳市",
+        "西安市",
+        "拉萨市",
+        "南宁市",
+        "海口市",
+        "兰州市",
+        "银川市",
+      ]
     };
+  },
+  props: ["geoCoordMap"],
+  watch: {
+    // 监听 props 的变化
+    geoCoordMap: {
+      handler(newValue, oldValue) {
+        // 当 props 变化时重新绘制图表
+        console.log("城市污染物指数对比变化");
+        this.convertData(newValue);
+        console.log("什么鬼",this.data);
+        this.getEchart();
+      },
+      immediate: true, // 立即执行 handler
+    },
   },
   mounted() {
     this.getEchart();
   },
   methods: {
+    convertData(data) {
+      let result = {};
+      // 初始化数据结构
+      for (let i = 0; i < 6; i++) {
+        result[i] = [];
+      }
+
+      // 遍历选定的城市，按照PM2.5, PM10, SO2, NO2, CO, O3的顺序填充数据
+      this.cityList.forEach(city => {
+        if (data[city]) {
+          const temp = data[city];
+          for (let i = 3; i < 9; i++) {  // 从数据数组的第三个元素开始取
+            result[i - 3].push(temp[i]);
+          }
+        }
+      });
+
+      this.data = result;
+
+    },
     dataFormatter(obj) {
-      let pList = [
-        "北京",
-        "上海",
-        "广州",
-        "成都",
-        "重庆",
-        "沈阳",
-        "合肥",
-        "贵阳",
-        "西安",
-        "拉萨",
-        "南宁",
-        "海口",
-        "兰州",
-        "银川",
-      ];
+      let pList = this.cityList;
       let temp;
-      for (let x = 0; x < 3; x++) {
+      for (let x = 0; x < 5; x++) {
         let max = 0;
         let sum = 0;
         temp = obj[x];
@@ -65,11 +101,7 @@ export default {
         color: "#0084ff",
       };
 
-      this.dataMap.dataType = this.dataFormatter({
-        2: [124, 145, 261, 54, 195, 131, 150, 39, 11, 40, 23, 51, 45, 88],
-        1: [136, 159, 205, 41, 306, 7, 77, 101, 24, 34, 8, 15, 14, 9],
-        0: [118, 128, 220, 47, 92, 14, 9, 11, 113, 61, 11, 22, 33, 5],
-      });
+      this.dataMap.dataType = this.dataFormatter(this.data);
 
       this.option = {
         baseOption: {
@@ -77,8 +109,8 @@ export default {
             top: "83%",
             axisType: "category",
             autoPlay: true,
-            playInterval: 1000,
-            data: ["PM2.5", "PM10", "SO2"],
+            playInterval: 3000,
+            data: ["PM2.5", "PM10", "SO2", "NO2", "CO", "O3"],
             left: 80,
             right: 80,
             bottom: 5,
@@ -218,6 +250,30 @@ export default {
             series: [
               {
                 data: this.dataMap.dataType["2"],
+                itemStyle: itemStyle,
+              },
+            ],
+          },
+          {
+            series: [
+              {
+                data: this.dataMap.dataType["3"],
+                itemStyle: itemStyle,
+              },
+            ],
+          },
+          {
+            series: [
+              {
+                data: this.dataMap.dataType["4"],
+                itemStyle: itemStyle,
+              },
+            ],
+          },
+          {
+            series: [
+              {
+                data: this.dataMap.dataType["5"],
                 itemStyle: itemStyle,
               },
             ],

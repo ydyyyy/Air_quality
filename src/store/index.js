@@ -6,12 +6,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cityName: '', // 当前选中城市
+    cityName: '',
+    cityInfo: [], // 当前选中城市信息
     geoCoordMap: {},
+    predictData: []
   },
   mutations: {
     updateGeoCoordMap(state, newMap) {
       state.geoCoordMap = newMap; // 这里更新状态
+    },
+    updateCityInfo(state, cityInfo) {
+      state.cityInfo = cityInfo;
+      console.log(state.cityInfo);
+    },
+    updateCityName(state, cityName) {
+      state.cityName = cityName;
+      console.log(state.cityName);
+    },
+    updatePredictData(state, data) {
+      state.predictData = data;
     }
   },
   actions: {
