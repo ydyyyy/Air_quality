@@ -7,7 +7,6 @@
 <template>
   <div class="wrap-container sn-container"> 
     <div class="sn-content"> 
-      <div class="sn-title">仪表盘</div> 
       <div class="sn-body"> 
         <div class="wrap-container"> 
           <div class="chartsdom" id="chart_gauge"></div> 
@@ -37,11 +36,11 @@ export default {
           formatter: '{a} <br/>{c} {b}'
         },
          series: [{
-            name: '速度',
+            name: 'AQI',
             type: 'gauge',
             min: 0,
-            max: 220,
-            splitNumber: 11,
+            max: 400,
+            splitNumber: 10,
             // radius: '50%',
             axisLine: {            // 坐标轴线
               lineStyle: {       // 属性lineStyle控制线条样式
@@ -81,8 +80,7 @@ export default {
             title: {
               textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                 fontWeight: 'bolder',
-                fontSize: 20,
-                fontStyle: 'italic',
+                fontSize: 25,
                 color: '#fff',
                 shadowColor: '#fff', //默认透明
                 shadowBlur: 10
@@ -103,7 +101,7 @@ export default {
             },
             data: [{
               value: 40, 
-              name: 'km/h'
+              name: 'AQI',
             }]
         }]
       }
@@ -129,13 +127,15 @@ export default {
 
 <style lang="scss" scoped>
 .sn-container {
-  left: 512px;
-  top: 2838px;
+  left: 730px;
+  top: 145px;
   width: 432px;
   height: 400px;
   .chartsdom {
-    width: 100%;
-    height: 100%;
+    width: 120%;
+    height: 120%;
+    left: -40px;
+    top: -40px;
   }
 }
 </style>

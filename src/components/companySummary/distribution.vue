@@ -25,7 +25,7 @@ export default {
     getEchartRight2() {
       let myChart = echarts.init(document.getElementById('chart_right2'));
       let option = {
-        color: ['#EAEA26', '#906BF9', '#FE5656', '#01E17E', '#3DD1F9', '#FFAD05', '#4465fc'],
+        color: ['#008000', '#FFFF00', '#FFA500', '#FF0000', '#800080', '#8B0000'],
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)'
@@ -165,26 +165,23 @@ export default {
             }
           },
           data: [{
-            value: 35,
-            name: '湖南'
-          },{
-            value: 28,
-            name: '河北'
-          },{
-            value: 23,
-            name: '广东'
-          },{
-            value: 18,
-            name: '四川'
-          },{
             value: 13,
-            name: '浙江'
+            name: '优'
           },{
             value: 8,
-            name: '江苏'
+            name: '良'
           },{
-            value: 5,
-            name: '湖北'
+            value: 2,
+            name: '轻度污染'
+          },{
+            value: 4,
+            name: '中度污染'
+          },{
+            value: 2,
+            name: '重度污染'
+          },{
+            value: 1,
+            name: '严重污染'
           }]
         }]
       }

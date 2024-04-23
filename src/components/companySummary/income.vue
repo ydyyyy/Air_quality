@@ -25,8 +25,8 @@ export default {
     getEchartLeft3() {
       let myChart = echarts.init(document.getElementById('chart_left3'));
       let data = {
-        city: ['2015', '2016', '2017', '2018', '2019', '2020'],
-        num: ['555', '896', '1935', '2922', '4508', '5000']
+        city: ['2018', '2019', '2020', '2021', '2022', '2023'],
+        num: ['79', '68', '58', '33', '57', '46']
       }
 
       let option = {
@@ -90,7 +90,7 @@ export default {
         }],
         yAxis: [{
           min: 0,
-          max: 6000,
+          max: 100,
           splitLine: {
             show: false,
             lineStyle: {

@@ -5,6 +5,7 @@ import store from './store'
 import vueParticles from 'vue-particles'
 import Vcomp from './components/index'
 import Toast from './components/toast'
+import './api/mock'
 
 import '@/assets/styles/base.scss'
 import '@/assets/styles/common.scss'
@@ -29,4 +30,8 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  created() {
+    this.$store.dispatch('startGeoUpdate');
+    this.$store.dispatch('initGeoCoordMap');
+  }
 }).$mount('#app')

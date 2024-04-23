@@ -7,7 +7,7 @@
 <template>
   <div class="wrap-container sn-container"> 
     <div class="sn-content"> 
-      <div class="sn-title">滚动弧形线</div> 
+      <div class="sn-title">未来七天空气质量预测</div> 
       <div class="sn-body"> 
         <div class="wrap-container"> 
           <div class="chartsdom" id="chart_arc"></div>
@@ -25,8 +25,8 @@ export default {
       option: null,
       number: 0, // 播放所在下标
       timer: null,
-      xData: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      data: [54, 86, 46, 77, 96, 89, 88, 23, 38, 3, 66, 98]
+      xData: [1, 2, 3, 4, 5, 6, 7],
+      data: [54, 86, 46, 77, 96, 89, 67]
     }
   },
   mounted() {
@@ -68,7 +68,7 @@ export default {
             show: false
           }, 
           axisLabel: {
-            formatter: '{value} 月'
+            formatter: '第 {value} 天'
           },
           axisLine: {
             lineStyle: {
@@ -150,11 +150,11 @@ export default {
 <style lang="scss" scoped>
 .sn-container {
   left: 50px;
-  top: 690px;
-  width: 895px;
+  top: 660px;
+  width: 1830px;
   height: 400px;
   .chartsdom {
-    width: 100%;
+    width: 98%;
     height: 95%;
   }
 }
