@@ -91,7 +91,7 @@
         <div class="item right">
           <div class="panel">
             <h2>城市污染物指数对比</h2>
-            <pyramidTrend :geoCoordMap="geoCoordMap"/>
+            <pyramidTrend :geoCoordMap="geoCoordMap" />
             <div class="panel-footer"></div>
           </div>
           <div class="panel">
@@ -149,10 +149,10 @@ export default {
   },
   created() {},
   mounted() {
-     this.getWeather();
-     this.timer = setInterval(() => {
-       this.getWeather();
-     }, 1000 * 60 * 60);
+    this.getWeather();
+    this.timer = setInterval(() => {
+      this.getWeather();
+    }, 1000 * 60 * 60);
     this.nowTimes();
     this.getEchart();
     this.updateHead(this.geoCoordMap);
